@@ -40,6 +40,12 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/CMS",
+            "allowedCommonJsDependencies": [
+              "object-path",
+              "apexcharts",
+              "clipboard.js",
+              "highlight.js"
+            ],
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -52,7 +58,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/apexcharts/dist/apexcharts.min.js",
+              "node_modules/clipboard/dist/clipboard.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -145,6 +154,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "CMS"
+    }
+  },
+  "defaultProject": "CMS",
+  "cli": {
+    "analytics": "3dd7735d-1770-477a-b339-339c081b6e32"
+  }
 }
