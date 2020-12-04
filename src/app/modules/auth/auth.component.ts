@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AuthComponent implements OnInit {
 
   today: Date = new Date();
+
   constructor() { }
 
   ngOnInit(): void {

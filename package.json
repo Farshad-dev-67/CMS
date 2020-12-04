@@ -34,6 +34,7 @@
     "jquery": "^3.5.1",
     "moment": "^2.27.0",
     "ng-apexcharts": "^1.5.1",
+    "ngx-toastr": "^13.1.0",
     "ng-inline-svg": "^10.1.0",
     "ngx-clipboard": "^13.0.1",
     "ngx-highlightjs": "3.0.3",

@@ -12,7 +12,7 @@ export class ScrollTopComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     KTUtil.ready(() => {
       // Init Scrolltop
       KTLayoutScrolltop.init('kt_scrolltop');

@@ -1,11 +1,11 @@
-import {Injectable, OnDestroy} from '@angular/core';
-import {BehaviorSubject, Observable, of, Subscription} from 'rxjs';
-import {catchError, finalize, map, switchMap} from 'rxjs/operators';
-import {UserModel} from '../_models/user.model';
-import {AuthModel} from '../_models/auth.model';
-import {AuthHTTPService} from './auth-http';
-import {environment} from 'src/environments/environment';
-import {Router} from '@angular/router';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
+import { map, catchError, switchMap, finalize } from 'rxjs/operators';
+import { UserModel } from '../_models/user.model';
+import { AuthModel } from '../_models/auth.model';
+import { AuthHTTPService } from './auth-http';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +42,8 @@ export class AuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
     return this.authHttpService.login(email, password).pipe(
       map((auth: AuthModel) => {
-        return this.setAuthFromLocalStorage(auth);
+        const result = this.setAuthFromLocalStorage(auth);
+        return result;
       }),
       switchMap(() => this.getUserByToken()),
       catchError((err) => {
@@ -53,7 +54,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  logout(): void {
+  logout() {
     localStorage.removeItem(this.authLocalStorageToken);
     this.router.navigate(['/auth/login'], {
       queryParams: {},
@@ -102,7 +103,6 @@ export class AuthService implements OnDestroy {
       .forgotPassword(email)
       .pipe(finalize(() => this.isLoadingSubject.next(false)));
   }
-
   // private methods
   private setAuthFromLocalStorage(auth: AuthModel): boolean {
     // store auth accessToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
@@ -115,16 +115,17 @@ export class AuthService implements OnDestroy {
 
   private getAuthFromLocalStorage(): AuthModel {
     try {
-      return JSON.parse(
+      const authData = JSON.parse(
         localStorage.getItem(this.authLocalStorageToken)
       );
+      return authData;
     } catch (error) {
       console.error(error);
       return undefined;
     }
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 }
