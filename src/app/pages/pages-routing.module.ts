@@ -5,7 +5,26 @@ import {LayoutComponent} from './_layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: 'site',
+        loadChildren: () =>
+          import('../pages/core/site/site.module').then(
+            (m) => m.SiteModule
+          ),
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+    ]
   }
 ];
 

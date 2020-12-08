@@ -4,22 +4,16 @@ import {CmsAuthGuard} from './_helpers/guard/cmsAuthGuard.service';
 
 const routes: Routes = [
   {
-    path: '',
-    children: [
-      {
-        path: 'dashboard',
-        canActivate: [CmsAuthGuard],
-        loadChildren: () => import('./pages/dashboard/dashboard.module')
-          .then(m => m.DashboardModule)
-      },
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      }
-    ]
+    path: 'auth',
+    loadChildren: () =>
+      import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
+  {
+    path: '',
+    canActivate: [CmsAuthGuard],
+    loadChildren: () =>
+      import('./pages/layout.module').then((m) => m.LayoutModule),
+  },
 ];
 
 @NgModule({

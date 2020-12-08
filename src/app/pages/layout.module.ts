@@ -7,7 +7,6 @@ import {AsideComponent} from './_layout/components/aside/aside.component';
 import {AsideDynamicComponent} from './_layout/components/aside-dynamic/aside-dynamic.component';
 import {InlineSVGModule} from 'ng-inline-svg';
 import {NgbDropdownModule, NgbProgressbarModule} from '@ng-bootstrap/ng-bootstrap';
-import { CoreModule } from '../_metronic/core';
 import {HeaderMenuComponent} from './_layout/components/header/header-menu/header-menu.component';
 import {HeaderComponent} from './_layout/components/header/header.component';
 import {HeaderMenuDynamicComponent} from './_layout/components/header/header-menu-dynamic/header-menu-dynamic.component';
@@ -15,31 +14,35 @@ import {TopbarComponent} from './_layout/components/topbar/topbar.component';
 import {LanguageSelectorComponent} from './_layout/components/topbar/language-selector/language-selector.component';
 import {HeaderMobileComponent} from './_layout/components/header-mobile/header-mobile.component';
 import {ExtrasModule} from '../_metronic/partials/layout/extras/extras.module';
-
+import {TranslationModule} from '../modules/i18n/translation.module';
+import {CoreModule} from '../_metronic/core';
+import {SubheaderModule} from '../_metronic/partials/layout/subheader/subheader.module';
+import {SiteModule} from './core/site/site.module';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     ScriptsInitComponent,
+    HeaderMobileComponent,
     AsideComponent,
-    AsideDynamicComponent,
     HeaderComponent,
     HeaderMenuComponent,
-    HeaderMenuDynamicComponent,
     TopbarComponent,
     LanguageSelectorComponent,
-    HeaderMobileComponent
-  ],
-  exports: [
-    LayoutComponent
+    AsideDynamicComponent,
+    HeaderMenuDynamicComponent,
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
+    TranslationModule,
     InlineSVGModule,
-    NgbProgressbarModule,
-    NgbDropdownModule,
     ExtrasModule,
+    NgbDropdownModule,
+    NgbProgressbarModule,
+    CoreModule,
+    SubheaderModule,
+    SiteModule
   ]
 })
 export class LayoutModule {

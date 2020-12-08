@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, Provider, Type} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -9,16 +9,21 @@ import xml from 'highlight.js/lib/languages/xml';
 import json from 'highlight.js/lib/languages/json';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
-import {HIGHLIGHT_OPTIONS} from 'ngx-highlightjs';
+import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {TranslateModule} from '@ngx-translate/core';
 import {ToastrModule} from 'ngx-toastr';
+import {SplashScreenModule} from './_metronic/partials/layout/splash-screen/splash-screen.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {InlineSVGModule} from 'ng-inline-svg';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ClipboardModule} from 'ngx-clipboard';
 
 export function getHighlightLanguages(): any {
   return [
-    { name: 'typescript', func: typescript },
-    { name: 'scss', func: scss },
-    { name: 'xml', func: xml },
-    { name: 'json', func: json },
+    {name: 'typescript', func: typescript},
+    {name: 'scss', func: scss},
+    {name: 'xml', func: xml},
+    {name: 'json', func: json},
   ];
 }
 
@@ -28,6 +33,7 @@ export function getHighlightLanguages(): any {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot(),
@@ -38,6 +44,11 @@ export function getHighlightLanguages(): any {
       preventDuplicates: true,
       closeButton: true,
     }),
+    SplashScreenModule,
+    InlineSVGModule.forRoot(),
+    NgbModule,
+    HighlightModule,
+    ClipboardModule,
   ],
   providers: [
     CoreAuthService,
@@ -51,4 +62,11 @@ export function getHighlightLanguages(): any {
   bootstrap: [AppComponent]
 })
 export class AppModule {
+}
+
+declare module '@angular/core' {
+  interface ModuleWithProviders<T = any> {
+    ngModule: Type<T>;
+    providers?: Provider[];
+  }
 }
