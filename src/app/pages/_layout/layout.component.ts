@@ -29,12 +29,12 @@ export class LayoutComponent implements OnInit, AfterViewInit {
   footerCSSClasses: string;
   headerCSSClasses: string;
   headerHTMLAttributes: any = {};
-  // offcanvases
-  extrasSearchOffcanvasDisplay = false;
-  extrasNotificationsOffcanvasDisplay = false;
-  extrasQuickActionsOffcanvasDisplay = false;
-  extrasCartOffcanvasDisplay = false;
-  extrasUserOffcanvasDisplay = false;
+  // offCanvases
+  extrasSearchOffCanvasDisplay = false;
+  extrasNotificationsOffCanvasDisplay = false;
+  extrasQuickActionsOffCanvasDisplay = false;
+  extrasCartOffCanvasDisplay = false;
+  extrasUserOffCanvasDisplay = false;
   extrasQuickPanelDisplay = false;
   extrasScrollTopDisplay = false;
   @ViewChild('ktAside', { static: true }) ktAside: ElementRef;
@@ -68,29 +68,29 @@ export class LayoutComponent implements OnInit, AfterViewInit {
     this.footerCSSClasses = this.layout.getStringCSSClasses('footer');
     this.headerCSSClasses = this.layout.getStringCSSClasses('header');
     this.headerHTMLAttributes = this.layout.getHTMLAttributes('header');
-    // offcanvases
+    // offCanvases
     if (this.layout.getProp('extras.search.display')) {
-      this.extrasSearchOffcanvasDisplay =
+      this.extrasSearchOffCanvasDisplay =
         this.layout.getProp('extras.search.layout') === 'offcanvas';
     }
 
     if (this.layout.getProp('extras.notifications.display')) {
-      this.extrasNotificationsOffcanvasDisplay =
+      this.extrasNotificationsOffCanvasDisplay =
         this.layout.getProp('extras.notifications.layout') === 'offcanvas';
     }
 
     if (this.layout.getProp('extras.quickActions.display')) {
-      this.extrasQuickActionsOffcanvasDisplay =
+      this.extrasQuickActionsOffCanvasDisplay =
         this.layout.getProp('extras.quickActions.layout') === 'offcanvas';
     }
 
     if (this.layout.getProp('extras.cart.display')) {
-      this.extrasCartOffcanvasDisplay =
+      this.extrasCartOffCanvasDisplay =
         this.layout.getProp('extras.cart.layout') === 'offcanvas';
     }
 
     if (this.layout.getProp('extras.user.display')) {
-      this.extrasUserOffcanvasDisplay =
+      this.extrasUserOffCanvasDisplay =
         this.layout.getProp('extras.user.layout') === 'offcanvas';
     }
 

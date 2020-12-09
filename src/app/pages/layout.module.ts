@@ -18,6 +18,7 @@ import {TranslationModule} from '../modules/i18n/translation.module';
 import {CoreModule} from '../_metronic/core';
 import {SubheaderModule} from '../_metronic/partials/layout/subheader/subheader.module';
 import {SiteModule} from './core/site/site.module';
+import {CoreAuthService, CoreCpMainMenuService} from 'ntk-cms-api';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,10 @@ import {SiteModule} from './core/site/site.module';
     CoreModule,
     SubheaderModule,
     SiteModule
+  ],
+  providers: [
+    CoreCpMainMenuService,
+    CoreAuthService
   ]
 })
 export class LayoutModule {

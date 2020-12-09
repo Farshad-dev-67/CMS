@@ -1,6 +1,7 @@
-import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../../../_metronic/core';
+import {Location} from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {LayoutService} from '../../../../_metronic/core';
+import {CoreAuthService, CoreCpMainMenuService} from 'ntk-cms-api';
 
 @Component({
   selector: 'app-aside',
@@ -20,9 +21,20 @@ export class AsideComponent implements OnInit {
   asideMenuScroll = 1;
   asideSelfMinimizeToggle = false;
 
-  constructor(private layout: LayoutService, private loc: Location) { }
+  firstChildItem: Array<any> = [];
+  secondChildItem: Array<any> = [];
+  thirdChildItem: Array<any> = [];
+
+  constructor(
+    private layout: LayoutService,
+    private loc: Location,
+    private coreCpMainMenuService: CoreCpMainMenuService,
+    public coreAuthService: CoreAuthService,
+  ) {
+  }
 
   ngOnInit(): void {
+    this.DataGetCpMenu();
     // load view settings
     this.disableAsideSelfDisplay =
       this.layout.getProp('aside.self.display') === false;
@@ -48,5 +60,28 @@ export class AsideComponent implements OnInit {
     } else {
       return './assets/media/logos/logo-light.png';
     }
+  }
+
+  DataGetCpMenu(): void {
+    this.firstChildItem = [];
+    this.secondChildItem = [];
+    this.thirdChildItem = [];
+    this.coreCpMainMenuService.ServiceGetAllMenu(null).subscribe(
+      (next) => {
+        next.ListItems.forEach((firstRes) => {
+          this.firstChildItem.push({firstTitle: firstRes.Title, parentId: firstRes.Id});
+          if (typeof firstRes.Children !== 'undefined') {
+            firstRes.Children.forEach((secondRes) => {
+              this.secondChildItem.push({secondTitle: secondRes.Title, secondParentId: secondRes.Id, firstChildId: secondRes.LinkParentId});
+              if (typeof secondRes.Children !== 'undefined' && secondRes.Children.length !== 0) {
+                secondRes.Children.forEach((thirdRes) => {
+                  this.thirdChildItem.push({thirdTitle: thirdRes.Title, secondChildId: thirdRes.LinkParentId});
+                });
+              }
+            });
+          }
+        });
+      }
+    );
   }
 }

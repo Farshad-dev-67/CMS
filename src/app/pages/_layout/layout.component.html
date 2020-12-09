@@ -75,35 +75,26 @@
           <!-- end:: Content Body -->
         </div>
         <!-- end:: Content -->
-        <ng-container *ngIf="footerDisplay">
-          <!--begin::Footer-->
-          <app-footer
-            class="footer bg-white py-4 d-flex flex-lg-column w-100"
-            id="kt_footer"
-            [ngClass]="footerCSSClasses"
-          ></app-footer>
-          <!--end::Footer-->
-        </ng-container>
       </div>
       <!--end::Wrapper-->
     </div>
     <!-- end:: Body -->
     <!--end::Page-->
 
-    <!--begin::Offcanvases-->
-    <ng-container *ngIf="extrasSearchOffcanvasDisplay">
+    <!--begin::OffCanvases-->
+    <ng-container *ngIf="extrasSearchOffCanvasDisplay">
       <app-search-offcanvas></app-search-offcanvas>
     </ng-container>
 
-    <ng-container *ngIf="extrasNotificationsOffcanvasDisplay">
+    <ng-container *ngIf="extrasNotificationsOffCanvasDisplay">
       <app-notifications-offcanvas></app-notifications-offcanvas>
     </ng-container>
 
-    <ng-container *ngIf="extrasQuickActionsOffcanvasDisplay">
+    <ng-container *ngIf="extrasQuickActionsOffCanvasDisplay">
       <app-quick-actions-offcanvas></app-quick-actions-offcanvas>
     </ng-container>
 
-    <ng-container *ngIf="extrasCartOffcanvasDisplay">
+    <ng-container *ngIf="extrasCartOffCanvasDisplay">
       <app-cart-offcanvas></app-cart-offcanvas>
     </ng-container>
 
@@ -111,16 +102,14 @@
       <app-quick-panel-offcanvas></app-quick-panel-offcanvas>
     </ng-container>
 
-    <ng-container *ngIf="extrasUserOffcanvasDisplay">
+    <ng-container *ngIf="extrasUserOffCanvasDisplay">
       <app-user-offcanvas></app-user-offcanvas>
     </ng-container>
-
-    <app-toolbar></app-toolbar>
 
     <ng-container *ngIf="extrasScrollTopDisplay">
       <app-scroll-top></app-scroll-top>
     </ng-container>
-    <!--end::Offcanvases-->
+    <!--end::OffCanvases-->
   </div>
 </ng-container>
 
