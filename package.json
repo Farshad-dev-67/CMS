@@ -8,7 +8,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-
   },
   "private": true,
   "dependencies": {
@@ -35,12 +34,12 @@
     "jquery": "^3.5.1",
     "moment": "^2.27.0",
     "ng-apexcharts": "^1.5.1",
-    "ngx-toastr": "^13.1.0",
     "ng-inline-svg": "^10.1.0",
     "ngx-clipboard": "^13.0.1",
     "ngx-highlightjs": "3.0.3",
     "ngx-perfect-scrollbar": "^9.0.0",
-    "ntk-cms-api": "^1.0.87",
+    "ngx-toastr": "^13.1.0",
+    "ntk-cms-api": "^1.0.99",
     "object-path": "^0.11.4",
     "perfect-scrollbar": "^1.5.0",
     "rxjs": "~6.6.0",

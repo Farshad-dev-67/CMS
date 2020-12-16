@@ -7,6 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {SelectionComponent} from './selection/selection.component';
 import {CoreSiteAddFirstComponent} from './addFirst/addFirst.component';
 import {SiteResolver} from './site.resolver';
+import {LayoutModule} from '../../layout.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +15,11 @@ import {SiteResolver} from './site.resolver';
     CoreSiteAddFirstComponent,
     SelectionComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    SiteRoutingModule,
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        SiteRoutingModule,
+    ],
   providers: [
     CoreSiteService,
     CoreSiteCategoryModuleService,

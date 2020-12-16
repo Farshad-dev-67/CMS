@@ -51,6 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
         }, 500);
       }
     });
+
     this.unsubscribe.push(routerSubscription);
 
     const DeviceToken = this.coreAuthService.getDeviceToken();

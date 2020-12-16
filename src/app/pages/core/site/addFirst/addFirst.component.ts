@@ -9,8 +9,8 @@ import {
   CoreSiteCategoryModuleService,
   CoreSiteCategoryService,
   CoreSiteService,
-  DomainModel,
-  ErrorExcptionResult, FilterModel
+  DomainModel, ErrorExceptionResult,
+  FilterModel
 } from 'ntk-cms-api';
 import {environment} from '../../../../../environments/environment';
 import {Router} from '@angular/router';
@@ -26,10 +26,10 @@ import {PublicHelper} from '../../../../_helpers/services/publicHelper';
 export class CoreSiteAddFirstComponent implements OnInit {
 
   dataModel = new CoreSiteAddFirstSiteDtoModel();
-  dataModelResultCategory: ErrorExcptionResult<CoreSiteCategoryModel>;
+  dataModelResultCategory: ErrorExceptionResult<CoreSiteCategoryModel>;
   filterModel = new FilterModel();
   dataModelLoad = false;
-  dataModelResultDomains = new ErrorExcptionResult<DomainModel>();
+  dataModelResultDomains = new ErrorExceptionResult<DomainModel>();
   captchaModel: CaptchaModel = new CaptchaModel();
   private dateModleInput: any;
 
