@@ -1,127 +1,64 @@
-import {Component, Injectable} from '@angular/core';
-import {FlatTreeControl} from '@angular/cdk/tree';
-import {CollectionViewer, SelectionChange} from '@angular/cdk/collections';
-import {map} from 'rxjs/operators';
-import {BehaviorSubject, merge, Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {FlatTreeControl} from '@angular/cdk/tree';
+import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 
-/** Flat node with expandable and level information */
-export class DynamicFlatNode {
-  Children: any;
-
-  constructor(
-    public item: string,
-    public level: number = 1,
-    public expandable: boolean = false,
-    public data: any = '',
-    public isLoading: boolean = false) {
-  }
+interface FoodNode {
+  Children: [];
+  AntiInjectionDate: string;
+  AntiInjectionExpiredMinute: number;
+  AntiInjectionRun: boolean;
+  AntiInjectionToken: string;
+  AntiInjectionTokenActionState: number;
+  CreatedBy: number;
+  CreatedDate: string;
+  Description: string;
+  Id: number;
+  LinkParentIdNode: string;
+  LinkSiteId: number;
+  RecordStatus: number;
+  Title: string;
 }
 
-@Injectable()
-export class DynamicDataSource {
-  children: any;
-  dataChange: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  database: any;
-
-  get data(): DynamicFlatNode[] {
-    return this.dataChange.value;
-  }
-
-  set data(value: DynamicFlatNode[]) {
-    this.treeControl.dataNodes = value;
-    this.dataChange.next(value);
-  }
-
-  constructor(private treeControl: FlatTreeControl<DynamicFlatNode>,
-              private activatedRoute: ActivatedRoute,
-  ) {
-    this.database = this.activatedRoute;
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
-    this.treeControl.expansionModel.changed.subscribe(change => {
-      if ((change as SelectionChange<DynamicFlatNode>).added ||
-        (change as SelectionChange<DynamicFlatNode>).removed) {
-        this.handleTreeControl(change as SelectionChange<DynamicFlatNode>);
-      }
-    });
-    return merge(collectionViewer.viewChange, this.dataChange).pipe(map(() => this.data));
-  }
-
-  /** Handle expand/collapse behaviors */
-  handleTreeControl(change: SelectionChange<DynamicFlatNode>): void {
-    if (change.added) {
-      change.added.forEach((node) => this.toggleNode(node, true));
-    }
-    if (change.removed) {
-      change.removed.reverse().forEach((node) => this.toggleNode(node, false));
-    }
-  }
-
-  toggleNode(node: DynamicFlatNode, expand: boolean): boolean {
-    if (typeof node.Children === 'undefined') {
-      return;
-    }
-    this.children = node.Children.map((res) => {
-      return res.Title;
-    });
-    const index = this.data.indexOf(node);
-    if (!this.children || index < 0) {
-      return;
-    }
-    if (expand) {
-      node.isLoading = true;
-      const nodes = this.children.map(name =>
-        new DynamicFlatNode(name, node.level = 1, node.expandable = true, this.database));
-      this.data.splice(index + 1, 0, ...nodes);
-      this.dataChange.next(this.data);
-      node.isLoading = false;
-    } else {
-      this.data.splice(index + 1, this.children.length);
-      this.dataChange.next(this.data);
-    }
-  }
+interface ExampleFlatNode {
+  expandable: boolean;
+  name: string;
+  level: number;
 }
-
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.scss']
 })
-export class CategoryComponent {
-  list: any;
-  getChildren: any;
-  database: any;
+export class CategoryComponent implements OnInit {
 
-  constructor(activatedRoute: ActivatedRoute) {
-    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new DynamicDataSource(this.treeControl,
-      activatedRoute.snapshot.data.categoryList.ListItems);
-    this.database = activatedRoute.snapshot.data.categoryList.ListItems;
+  TREE_DATA: FoodNode[] = [];
 
-    this.dataSource.data = activatedRoute.snapshot.data.categoryList.ListItems;
+  private transformer = (node: FoodNode, level: number) => {
+    return {
+      expandable: !!node.Children && node.Children.length > 0,
+      name: node.Title,
+      level,
+    };
+  }
+  constructor(private activatedRoute: ActivatedRoute) {
   }
 
-  treeControl: FlatTreeControl<DynamicFlatNode>;
+  // tslint:disable-next-line
+  treeControl = new FlatTreeControl<ExampleFlatNode>(
+    node => node.level, node => node.expandable);
+  // tslint:disable-next-line
+  treeFlattener = new MatTreeFlattener(
+    this.transformer, node => node.level, node => node.expandable, node => node.Children);
+  // tslint:disable-next-line
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  dataSource: DynamicDataSource;
+  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
 
-  getLevel(node: DynamicFlatNode): any {
-    return node.level;
+  ngOnInit(): void {
+    this.TREE_DATA = this.activatedRoute.snapshot.data.categoryList.ListItems;
+    this.dataSource.data = this.TREE_DATA;
   }
 
-  isExpandable(node: DynamicFlatNode): boolean {
-    return node.expandable;
-  }
-
-  hasChild(_: number, nodeData: DynamicFlatNode): any {
-    if (typeof nodeData.Children !== 'undefined' && nodeData.Children.length > 0) {
-      return nodeData.expandable = true;
-    }
-    if (typeof nodeData.item !== 'undefined') {
-      return nodeData.expandable = true;
-    }
-  }
 }
