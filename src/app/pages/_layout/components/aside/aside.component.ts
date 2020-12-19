@@ -1,8 +1,8 @@
-import {Location} from '@angular/common';
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {LayoutService} from '../../../../_metronic/core';
-import {CoreAuthService, CoreCpMainMenuService} from 'ntk-cms-api';
-import {ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LayoutService } from '../../../../_metronic/core';
+import { CoreAuthService, CoreCpMainMenuService } from 'ntk-cms-api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-aside',
@@ -36,6 +36,10 @@ export class AsideComponent implements OnInit {
     public coreAuthService: CoreAuthService,
     private activatedRoute: ActivatedRoute
   ) {
+    this.coreAuthService.CurrentTokenInfoBSObs.subscribe((value) => {
+      this.DataGetCpMenu();
+    });
+
   }
 
   ngOnInit(): void {
@@ -69,39 +73,44 @@ export class AsideComponent implements OnInit {
     this.firstChildItem = [];
     this.secondChildItem = [];
     this.thirdChildItem = [];
-    // this.coreCpMainMenuService.ServiceGetAllMenu(null).subscribe(
-    //   (next) => {
-    //     next.ListItems.forEach((firstRes) => {
-    //       this.firstChildItem.push({firstTitle: firstRes.Title, parentId: firstRes.Id});
-    //       if (typeof firstRes.Children !== 'undefined') {
-    //         firstRes.Children.forEach((secondRes) => {//
-    //         this.secondChildItem.push({secondTitle: secondRes.Title,
-    //         secondParentId: secondRes.Id, firstChildId: secondRes.LinkParentId});
-    //           if (typeof secondRes.Children !== 'undefined' && secondRes.Children.length !== 0) {
-    //             secondRes.Children.forEach((thirdRes) => {
-    //               this.thirdChildItem.push({thirdTitle: thirdRes.Title, secondChildId: thirdRes.LinkParentId});
-    //             });
-    //           }
+    this.coreCpMainMenuService.ServiceGetAllMenu(null).subscribe(
+      (next) => {
+        if (next.IsSuccess) {
+          next.ListItems.forEach((firstRes) => {
+            this.firstChildItem.push({ firstTitle: firstRes.Title, parentId: firstRes.Id });
+            if (typeof firstRes.Children !== 'undefined') {
+              firstRes.Children.forEach((secondRes) => {
+                this.secondChildItem.push({
+                  secondTitle: secondRes.Title,
+                  secondParentId: secondRes.Id,
+                  firstChildId: secondRes.LinkParentId
+                });
+                if (typeof secondRes.Children !== 'undefined' && secondRes.Children.length !== 0) {
+                  secondRes.Children.forEach((thirdRes) => {
+                    this.thirdChildItem.push({ thirdTitle: thirdRes.Title, secondChildId: thirdRes.LinkParentId });
+                  });
+                }
+              });
+            }
+          });
+        }
+      }
+    );
+    // this.menuList.ListItems.forEach((firstRes) => {
+    //   this.firstChildItem.push({firstTitle: firstRes.Title, parentId: firstRes.Id});
+    //   if (typeof firstRes.Children !== 'undefined') {
+    //     firstRes.Children.forEach((secondRes) => {
+    //       this.secondChildItem.push({
+    //         secondTitle: secondRes.Title,
+    //         secondParentId: secondRes.Id,
+    //         firstChildId: secondRes.LinkParentId});
+    //       if (typeof secondRes.Children !== 'undefined' && secondRes.Children.length !== 0) {
+    //         secondRes.Children.forEach((thirdRes) => {
+    //           this.thirdChildItem.push({thirdTitle: thirdRes.Title, secondChildId: thirdRes.LinkParentId});
     //         });
     //       }
     //     });
     //   }
-    // );
-    this.menuList.ListItems.forEach((firstRes) => {
-      this.firstChildItem.push({firstTitle: firstRes.Title, parentId: firstRes.Id});
-      if (typeof firstRes.Children !== 'undefined') {
-        firstRes.Children.forEach((secondRes) => {
-          this.secondChildItem.push({
-            secondTitle: secondRes.Title,
-            secondParentId: secondRes.Id,
-            firstChildId: secondRes.LinkParentId});
-          if (typeof secondRes.Children !== 'undefined' && secondRes.Children.length !== 0) {
-            secondRes.Children.forEach((thirdRes) => {
-              this.thirdChildItem.push({thirdTitle: thirdRes.Title, secondChildId: thirdRes.LinkParentId});
-            });
-          }
-        });
-      }
-    });
+    // });
   }
 }

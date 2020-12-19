@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    resolve: {menuList: AsideResolver},
+    // resolve: {menuList: AsideResolver},
     children: [
       {
         path: 'dashboard',
