@@ -7,7 +7,7 @@ import {CategoryResolver} from './category.resolver';
 const routes: Routes = [
   {
     path: '',
-    resolve: {categoryList: CategoryResolver},
+
     component: CategoryComponent
   }
 ];

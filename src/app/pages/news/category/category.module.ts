@@ -7,22 +7,27 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {CategoryResolver} from './category.resolver';
-import {NewsCategoryService} from 'ntk-cms-api';
+import {CoreEnumService, NewsCategoryService} from 'ntk-cms-api';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [CategoryComponent],
+    declarations: [CategoryComponent],
   imports: [
     CommonModule,
     CategoryRoutingModule,
     MatTreeModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    FormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
   ],
+    exports: [
+        CategoryComponent
+    ],
   providers: [
-    CategoryResolver,
-    NewsCategoryService
+    CoreEnumService
   ]
 })
 export class CategoryModule {

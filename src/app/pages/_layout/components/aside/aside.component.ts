@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { LayoutService } from '../../../../_metronic/core';
 import { CoreAuthService, CoreCpMainMenuService } from 'ntk-cms-api';
 import { ActivatedRoute } from '@angular/router';
@@ -36,10 +36,6 @@ export class AsideComponent implements OnInit {
     public coreAuthService: CoreAuthService,
     private activatedRoute: ActivatedRoute
   ) {
-    this.coreAuthService.CurrentTokenInfoBSObs.subscribe((value) => {
-      this.DataGetCpMenu();
-    });
-
   }
 
   ngOnInit(): void {
@@ -59,6 +55,9 @@ export class AsideComponent implements OnInit {
     this.asideMenuCSSClasses = `${this.asideMenuCSSClasses} ${this.asideMenuScroll === 1 ? 'scroll my-4 ps ps--active-y' : ''}`;
     // Routing
     this.location = this.loc;
+    this.coreAuthService.CurrentTokenInfoBSObs.subscribe(() => {
+      this.DataGetCpMenu();
+    });
   }
 
   private getLogo(): string {

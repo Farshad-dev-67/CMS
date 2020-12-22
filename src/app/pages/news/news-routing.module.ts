@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-
 import {NewsComponent} from './news.component';
 import {CategoryResolver} from './category/category.resolver';
 
@@ -10,10 +9,11 @@ const routes: Routes = [
     component: NewsComponent,
     children: [
       {
-        path: 'category',
+        path: 'content',
+        resolve: {categoryList: CategoryResolver},
         loadChildren: () =>
-          import('./category/category.module').then(m => m.CategoryModule)
-      }
+          import('./content/content.module').then(m => m.ContentModule)
+      },
     ]
   },
 ];
