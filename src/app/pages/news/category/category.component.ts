@@ -125,7 +125,9 @@ export class CategoryComponent implements OnInit {
           });
       } else {
         this.hasError = false;
-        this.dataModel.LinkParentId = this.parentId;
+        if (this.parentId !== this.getNodeOfId.id) {
+          this.dataModel.LinkParentId = this.parentId;
+        }
         this.dataModel.Id = this.getNodeOfId.id;
         this.newsCategoryService
           .ServiceEdit(this.dataModel)
@@ -139,6 +141,7 @@ export class CategoryComponent implements OnInit {
   }
 
   addNodeOfTreeNode(): void {
+    this.dataModel = new NewsCategoryModel();
     this.action = 'add';
   }
 

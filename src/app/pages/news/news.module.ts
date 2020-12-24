@@ -11,6 +11,7 @@ import {NewsCategoryService} from 'ntk-cms-api';
   imports: [
     CommonModule,
     NewsRoutingModule,
+
   ],
   providers: [
     CategoryResolver,
