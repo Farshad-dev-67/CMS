@@ -23,6 +23,9 @@ mat-paginator{
 ::ng-deep .mat-slide-toggle-content {
   font-family: 'IRANSansWeb' !important;
 }
+.btn-bg-info {
+  color: white;
+}
 @media (max-width: 475px) {
   .BTN{
     margin-right: 0;

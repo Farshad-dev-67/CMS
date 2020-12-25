@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
@@ -21,6 +21,7 @@ interface ExampleFlatNode {
 })
 export class CategoryComponent implements OnInit {
 
+  @Output() contentList = new EventEmitter<any>();
   @ViewChild('myModal') myModal;
   action: any;
   categoryForm: FormGroup;
@@ -102,6 +103,7 @@ export class CategoryComponent implements OnInit {
   }
 
   getNode(node): void {
+    this.contentList.emit(node);
     if (typeof this.parentId === 'undefined') {
       this.parentId = node.id;
     }

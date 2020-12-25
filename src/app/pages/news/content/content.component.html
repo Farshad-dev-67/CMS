@@ -1,5 +1,4 @@
-
-<app-category></app-category>
+<app-category (contentList)="getContentListById($event)"></app-category>
 <div>
   <div class="align-Btn">
     <button type="button" class="btn btn-primary">جدید</button>
@@ -7,7 +6,7 @@
       <mat-slide-toggle [(ngModel)]="checked" (change)="changed($event)">پرس و جو ساز</mat-slide-toggle>
     </a>
     <button type="button" class="btn btn-success BTN">آمار</button>
-    <button type="button" class="btn btn-danger BTN">خروجی فایل</button>
+    <button type="button" class="btn btn-bg-info BTN">خروجی فایل</button>
     <button type="button" class="btn btn-warning BTN">برسی مجدد</button>
     <div class="Query" *ngIf="checked">
       <query-builder [(ngModel)]='query' [config]='config'></query-builder>

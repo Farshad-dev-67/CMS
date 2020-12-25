@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ErrorExceptionResult, NewsContentModel} from 'ntk-cms-api';
+import {ErrorExceptionResult, FilterModel, NewsContentModel, NewsContentService} from 'ntk-cms-api';
 import {PublicHelper} from '../../../_helpers/services/publicHelper';
 import {QueryBuilderConfig} from 'angular2-query-builder';
 
@@ -10,7 +10,7 @@ import {QueryBuilderConfig} from 'angular2-query-builder';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit {
-  query;
+  query: any;
   checked = false;
   config: QueryBuilderConfig = {
     fields: {
@@ -31,13 +31,14 @@ export class ContentComponent implements OnInit {
     'Title',
     'CreatedDate',
     'UpdatedDate'];
-  // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource: any;
   dataModelResult: ErrorExceptionResult<NewsContentModel> = new ErrorExceptionResult<NewsContentModel>();
+  filterModelContent = new FilterModel();
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    public publicHelper: PublicHelper) {
+    public publicHelper: PublicHelper,
+    private newsContentService: NewsContentService) {
   }
 
   ngOnInit(): void {
@@ -47,5 +48,48 @@ export class ContentComponent implements OnInit {
 
   changed(event): void {
     this.checked = event.checked;
+  }
+
+  getContentListById(event): any {
+    this.filterModelContent.Filters = [];
+    this.filterModelContent.Filters.push({
+      BooleanValue1: false,
+      ClauseType: undefined,
+      DateTimeValue1: undefined,
+      DateTimeValue2: undefined,
+      DecimalForceNullSearch: false,
+      DecimalValue1: null,
+      DecimalValue2: null,
+      EnumValue1: '',
+      Filters: [],
+      HierarchyIdLevel: null,
+      IntContainValues: [],
+      IntValue2: null,
+      IntValueForceNullSearch: false,
+      LatitudeLongitudeDistanceValue1: null,
+      LatitudeLongitudeDistanceValue2: null,
+      LatitudeLongitudeForceNullSearch: false,
+      LatitudeLongitudeSortType: '',
+      LatitudeValue1: null,
+      LatitudeValue2: null,
+      ObjectIdContainValues: [],
+      ObjectIdValue1: '',
+      PropertyAnyName: '',
+      SearchType: undefined,
+      SingleValue1: null,
+      SingleValue2: null,
+      StringContainValues: [],
+      StringForceNullSearch: false,
+      StringValue1: '',
+      Value: undefined,
+      PropertyName: 'LinkCategoryId',
+      IntValue1: event.id
+    });
+    return this.newsContentService.ServiceGetAll(this.filterModelContent).subscribe((res) => {
+      if (res.IsSuccess) {
+        this.dataSource = [];
+        this.dataSource = res.ListItems;
+      }
+    });
   }
 }
