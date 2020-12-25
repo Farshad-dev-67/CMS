@@ -9,7 +9,7 @@ mat-paginator{
 .align-Btn{
   margin-top: 20px;
   width: 100%;
-  height: 85px;
+  height: auto;
   border: 1px;
   padding-block: 22px;
   padding-right: 8px;
@@ -20,7 +20,10 @@ mat-paginator{
 .BTN{
   margin-right: 5px;
 }
-@media (max-width: 440px) {
+::ng-deep .mat-slide-toggle-content {
+  font-family: 'IRANSansWeb' !important;
+}
+@media (max-width: 475px) {
   .BTN{
     margin-right: 0;
   }
@@ -28,7 +31,7 @@ mat-paginator{
 
     margin-top: 20px;
     width: 100%;
-    height: 260px;
+    height: auto;
     display: grid;
     align-content: space-between;
     border: 1px;
@@ -39,4 +42,7 @@ mat-paginator{
     background: white;
     box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
   }
+}
+.Query{
+  padding: 10px;
 }

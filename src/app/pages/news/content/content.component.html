@@ -1,12 +1,17 @@
-<!--<query-builder [(ngModel)]='query' [config]='config'></query-builder>-->
+
 <app-category></app-category>
 <div>
   <div class="align-Btn">
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary BTN">Secondary</button>
-    <button type="button" class="btn btn-success BTN">Success</button>
-    <button type="button" class="btn btn-danger BTN">Danger</button>
-    <button type="button" class="btn btn-warning BTN">Warning</button>
+    <button type="button" class="btn btn-primary">جدید</button>
+    <a class="btn btn-secondary btn-sm BTN">
+      <mat-slide-toggle [(ngModel)]="checked" (change)="changed($event)">پرس و جو ساز</mat-slide-toggle>
+    </a>
+    <button type="button" class="btn btn-success BTN">آمار</button>
+    <button type="button" class="btn btn-danger BTN">خروجی فایل</button>
+    <button type="button" class="btn btn-warning BTN">برسی مجدد</button>
+    <div class="Query" *ngIf="checked">
+      <query-builder [(ngModel)]='query' [config]='config'></query-builder>
+    </div>
   </div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

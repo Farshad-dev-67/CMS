@@ -11,7 +11,7 @@ import {QueryBuilderConfig} from 'angular2-query-builder';
 })
 export class ContentComponent implements OnInit {
   query;
-
+  checked = false;
   config: QueryBuilderConfig = {
     fields: {
       age: {name: 'Age', type: 'number'},
@@ -45,4 +45,7 @@ export class ContentComponent implements OnInit {
     this.dataSource = this.dataModelResult;
   }
 
+  changed(event): void {
+    this.checked = event.checked;
+  }
 }

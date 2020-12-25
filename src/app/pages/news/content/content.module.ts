@@ -11,6 +11,7 @@ import {ContentResolver} from './content.resolver';
 import {NewsContentService} from 'ntk-cms-api';
 import {QueryBuilderModule} from 'angular2-query-builder';
 import {FormsModule} from '@angular/forms';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [ContentComponent],
@@ -22,7 +23,8 @@ import {FormsModule} from '@angular/forms';
     MatPaginatorModule,
     MatButtonModule,
     QueryBuilderModule,
-    FormsModule
+    FormsModule,
+    MatSlideToggleModule
   ],
   providers: [
     ContentResolver,
