@@ -104,11 +104,11 @@ export class CategoryComponent implements OnInit {
 
   getNode(node): void {
     this.contentList.emit(node);
-    if (typeof this.parentId === 'undefined') {
+    if (typeof this.parentId === 'undefined' || this.parentId !== node.id) {
       this.parentId = node.id;
     }
-    this.flag = true;
     this.getNodeOfId = node;
+    this.flag = true;
   }
 
   onFormSubmit(): void {
